@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Neon Arena — Multiplayer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="toast"></div>
+
+<section id="login" class="screen">
+  <div class="login-card glass">
+    <div class="logo"><span>⚡</span> NEON ARENA</div>
+    <p class="eyebrow">ONLINE MULTIPLAYER // BETA</p>
+    <h1>Enter the arena.</h1>
+    <p class="muted">Create a room, invite your friends, and battle for the highest score.</p>
+    <input id="username" maxlength="18" placeholder="Choose a username" autocomplete="username">
+    <button id="loginBtn" class="primary">ENTER ARENA</button>
+    <p class="tiny">Usernames are unique. Your account is saved securely in this browser.</p>
+  </div>
+</section>
+
+<div id="app" class="hidden">
+  <header class="topbar">
+    <div class="logo small"><span>⚡</span> NEON ARENA</div>
+    <div class="top-actions">
+      <span id="meName" class="pill"></span>
+      <button id="friendsBtn">FRIENDS <b id="requestCount">0</b></button>
+      <button id="leaderBtn">LEADERBOARD</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar glass">
+      <div class="side-section">
+        <div class="section-title">ROOM</div>
+        <div id="roomCode" class="room-code">—</div>
+        <button id="createRoom" class="primary">CREATE ROOM</button>
+        <div class="join-row"><input id="roomInput" maxlength="6" placeholder="ROOM CODE"><button id="joinRoom">JOIN</button></div>
+      </div>
+
+      <div class="side-section">
+        <div class="section-title">PLAYERS <span id="playerCount">0/8</span></div>
+        <div id="players"></div>
+      </div>
+
+      <div class="side-section">
+        <div class="section-title">ROOM CHAT</div>
+        <div id="roomChat" class="chat-box"></div>
+        <form id="roomChatForm" class="chat-form"><input id="roomMessage" placeholder="Say something..."><button>➤</button></form>
+      </div>
+
+      <div class="side-section">
+        <div class="section-title">GLOBAL CHAT</div>
+        <div id="globalChat" class="chat-box mini"></div>
+        <form id="globalChatForm" class="chat-form"><input id="globalMessage" placeholder="Chat with everyone..."><button>➤</button></form>
+      </div>
+
+      <button id="leaveRoom" class="danger">LEAVE ROOM</button>
+    </aside>
+
+    <section class="game-wrap">
+      <div class="hud">
+        <div><span class="label">ROOM</span><strong id="hudRoom">—</strong></div>
+        <div class="timer"><span id="timer">02:00</span></div>
+        <div><span class="label">YOUR SCORE</span><strong id="myScore">0</strong></div>
+      </div>
+      <div id="gameCard" class="game-card glass">
+        <canvas id="game" width="1200" height="680"></canvas>
+        <div id="lobbyOverlay" class="overlay">
+          <div class="overlay-inner">
+            <div class="big-icon">◈</div>
+            <h2>READY?</h2>
+            <p>Create or join a room. When you're ready, the room host can launch the match.</p>
+            <button id="startMatch" class="primary">START MATCH</button>
+            <div class="controls"><span>WASD</span> MOVE <span>🖱</span> AIM / SHOOT <span>SPACE</span> DASH</div>
+          </div>
+        </div>
+        <div id="resultOverlay" class="overlay hidden">
+          <div class="results-card">
+            <div class="eyebrow">MATCH COMPLETE</div>
+            <h2>FINAL SCOREBOARD</h2>
+            <div id="results"></div>
+            <button id="backToLobby" class="primary">BACK TO LOBBY</button>
+          </div>
+        </div>
+      </div>
+      <div class="tip">Survive. Hit enemies. Chain eliminations. <b>Top score wins the match.</b></div>
+    </section>
+  </main>
+</div>
+
+<div id="friendsModal" class="modal hidden">
+  <div class="modal-card glass">
+    <button class="close" data-close="friendsModal">×</button>
+    <h2>FRIENDS</h2>
+    <form id="friendForm" class="friend-add"><input id="friendUsername" placeholder="Enter username"><button class="primary">ADD FRIEND</button></form>
+    <div id="friendRequests"></div>
+    <div class="friends-list" id="friendsList"></div>
+  </div>
+</div>
+
+<div id="leaderModal" class="modal hidden">
+  <div class="modal-card glass">
+    <button class="close" data-close="leaderModal">×</button>
+    <h2>GLOBAL LEADERBOARD</h2>
+    <div id="leaderboard"></div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/client.js"></script>
+</body>
+</html>

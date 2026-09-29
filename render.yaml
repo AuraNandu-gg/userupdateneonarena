@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: neon-arena
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    disk:
+      name: neon-arena-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
